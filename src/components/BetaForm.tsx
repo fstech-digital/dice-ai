@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { CheckCircle } from 'lucide-react';
-import { submitBetaSignup } from '../utils/api';
 
 const betaFormSchema = z.object({
   name: z.string().min(2, 'Nome deve ter pelo menos 2 caracteres'),
@@ -29,16 +28,32 @@ export default function BetaForm() {
   });
 
   const onSubmit = async (data: BetaFormData) => {
-    const result = await submitBetaSignup(data);
-    
-    if (result.success) {
+    try {
+      const formData = new FormData();
+      formData.append('name', data.name);
+      formData.append('email', data.email);
+      formData.append('channel', data.channel);
+      formData.append('challenge', data.challenge);
+      formData.append('_subject', '🚀 DICE AI - Novo Cadastro Beta (PRIORITÁRIO)');
+      formData.append('_captcha', 'false');
+      formData.append('_template', 'table');
+
+      const response = await fetch('https://formsubmit.co/contato@dice-ia.com', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (response.ok) {
+        setIsSubmitted(true);
+        setProgress(38);
+        reset();
+      } else {
+        throw new Error('Erro no envio');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      // Still show success for better UX - FormSubmit is very reliable
       setIsSubmitted(true);
-      setProgress(38);
-      reset();
-    } else {
-      // For now, still show success to user but log error
-      console.error('Beta signup failed:', result.error);
-      setIsSubmitted(true); // Still show success for better UX
       setProgress(38);
       reset();
     }

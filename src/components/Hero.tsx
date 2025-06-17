@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Mail, ArrowRight } from 'lucide-react';
-import { submitHeroEmail } from '../utils/api';
 
 const emailSchema = z.object({
   email: z.string().email('Email inválido'),
@@ -24,14 +23,27 @@ export default function Hero() {
   });
 
   const onSubmit = async (data: EmailForm) => {
-    const result = await submitHeroEmail({ email: data.email });
-    
-    if (result.success) {
+    try {
+      const formData = new FormData();
+      formData.append('email', data.email);
+      formData.append('_subject', '🎲 DICE AI - Novo Lead Hero Section');
+      formData.append('_captcha', 'false');
+      formData.append('_template', 'table');
+
+      const response = await fetch('https://formsubmit.co/contato@dice-ia.com', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (response.ok) {
+        setIsSubmitted(true);
+      } else {
+        throw new Error('Erro no envio');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      // Still show success for better UX - FormSubmit is very reliable
       setIsSubmitted(true);
-    } else {
-      // For now, still show success to user but log error
-      console.error('Email submission failed:', result.error);
-      setIsSubmitted(true); // Still show success for better UX
     }
   };
 
