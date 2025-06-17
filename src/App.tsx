@@ -1,28 +1,15 @@
-import Navigation from './components/Navigation'
-import Hero from './components/Hero'
-import ProblemSolution from './components/ProblemSolution'
-import HowItWorks from './components/HowItWorks'
-import FrameworkSection from './components/FrameworkSection'
-import Benefits from './components/Benefits'
-import Testimonials from './components/Testimonials'
-import FAQ from './components/FAQ'
-import BetaForm from './components/BetaForm'
-import Footer from './components/Footer'
+import { Routes, Route } from 'react-router-dom'
+import HomePage from './pages/HomePage'
+import TermsOfService from './pages/TermsOfService'
+import PrivacyPolicy from './pages/PrivacyPolicy'
 
 function App() {
   return (
-    <div className="min-h-screen bg-white">
-      <Navigation />
-      <Hero />
-      <ProblemSolution />
-      <HowItWorks />
-      <FrameworkSection />
-      <Benefits />
-      <Testimonials />
-      <FAQ />
-      <BetaForm />
-      <Footer />
-    </div>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/termos" element={<TermsOfService />} />
+      <Route path="/privacidade" element={<PrivacyPolicy />} />
+    </Routes>
   )
 }
 
