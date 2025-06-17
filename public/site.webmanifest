@@ -1,0 +1,17 @@
+{
+    "name": "DICE AI - Análise Ética de Conteúdo",
+    "short_name": "DICE AI",
+    "description": "Sistema de análise cognitiva de conteúdo com IA ética",
+    "icons": [
+        {
+            "src": "/favicon.svg",
+            "sizes": "any",
+            "type": "image/svg+xml"
+        }
+    ],
+    "theme_color": "#2563eb",
+    "background_color": "#ffffff",
+    "display": "standalone",
+    "start_url": "/",
+    "scope": "/"
+}
