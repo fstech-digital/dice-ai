@@ -24,25 +24,46 @@ export default function Hero() {
 
   const onSubmit = async (data: EmailForm) => {
     try {
-      const formData = new FormData();
-      formData.append('email', data.email);
-      formData.append('_subject', '🎲 DICE AI - Novo Lead Hero Section');
-      formData.append('_captcha', 'false');
-      formData.append('_template', 'table');
+      // Create form element and submit traditionally
+      const form = document.createElement('form');
+      form.action = 'https://formsubmit.co/contato@dice-ia.com';
+      form.method = 'POST';
+      form.style.display = 'none';
 
-      const response = await fetch('https://formsubmit.co/contato@dice-ia.com', {
-        method: 'POST',
-        body: formData
-      });
+      // Add form fields
+      const emailField = document.createElement('input');
+      emailField.type = 'email';
+      emailField.name = 'email';
+      emailField.value = data.email;
+      form.appendChild(emailField);
 
-      if (response.ok) {
-        setIsSubmitted(true);
-      } else {
-        throw new Error('Erro no envio');
-      }
+      // Add hidden fields
+      const subjectField = document.createElement('input');
+      subjectField.type = 'hidden';
+      subjectField.name = '_subject';
+      subjectField.value = '🎲 DICE AI - Novo Lead Hero Section';
+      form.appendChild(subjectField);
+
+      const captchaField = document.createElement('input');
+      captchaField.type = 'hidden';
+      captchaField.name = '_captcha';
+      captchaField.value = 'false';
+      form.appendChild(captchaField);
+
+      const nextField = document.createElement('input');
+      nextField.type = 'hidden';
+      nextField.name = '_next';
+      nextField.value = window.location.href;
+      form.appendChild(nextField);
+
+      // Submit form
+      document.body.appendChild(form);
+      form.submit();
+      document.body.removeChild(form);
+
+      setIsSubmitted(true);
     } catch (error) {
       console.error('Error:', error);
-      // Still show success for better UX - FormSubmit is very reliable
       setIsSubmitted(true);
     }
   };

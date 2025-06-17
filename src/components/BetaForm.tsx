@@ -29,30 +29,65 @@ export default function BetaForm() {
 
   const onSubmit = async (data: BetaFormData) => {
     try {
-      const formData = new FormData();
-      formData.append('name', data.name);
-      formData.append('email', data.email);
-      formData.append('channel', data.channel);
-      formData.append('challenge', data.challenge);
-      formData.append('_subject', '🚀 DICE AI - Novo Cadastro Beta (PRIORITÁRIO)');
-      formData.append('_captcha', 'false');
-      formData.append('_template', 'table');
+      // Create form element and submit traditionally
+      const form = document.createElement('form');
+      form.action = 'https://formsubmit.co/contato@dice-ia.com';
+      form.method = 'POST';
+      form.style.display = 'none';
 
-      const response = await fetch('https://formsubmit.co/contato@dice-ia.com', {
-        method: 'POST',
-        body: formData
-      });
+      // Add form fields
+      const nameField = document.createElement('input');
+      nameField.type = 'text';
+      nameField.name = 'name';
+      nameField.value = data.name;
+      form.appendChild(nameField);
 
-      if (response.ok) {
-        setIsSubmitted(true);
-        setProgress(38);
-        reset();
-      } else {
-        throw new Error('Erro no envio');
-      }
+      const emailField = document.createElement('input');
+      emailField.type = 'email';
+      emailField.name = 'email';
+      emailField.value = data.email;
+      form.appendChild(emailField);
+
+      const channelField = document.createElement('input');
+      channelField.type = 'text';
+      channelField.name = 'channel';
+      channelField.value = data.channel;
+      form.appendChild(channelField);
+
+      const challengeField = document.createElement('textarea');
+      challengeField.name = 'challenge';
+      challengeField.value = data.challenge;
+      form.appendChild(challengeField);
+
+      // Add hidden fields
+      const subjectField = document.createElement('input');
+      subjectField.type = 'hidden';
+      subjectField.name = '_subject';
+      subjectField.value = '🚀 DICE AI - Novo Cadastro Beta (PRIORITÁRIO)';
+      form.appendChild(subjectField);
+
+      const captchaField = document.createElement('input');
+      captchaField.type = 'hidden';
+      captchaField.name = '_captcha';
+      captchaField.value = 'false';
+      form.appendChild(captchaField);
+
+      const nextField = document.createElement('input');
+      nextField.type = 'hidden';
+      nextField.name = '_next';
+      nextField.value = window.location.href;
+      form.appendChild(nextField);
+
+      // Submit form
+      document.body.appendChild(form);
+      form.submit();
+      document.body.removeChild(form);
+
+      setIsSubmitted(true);
+      setProgress(38);
+      reset();
     } catch (error) {
       console.error('Error:', error);
-      // Still show success for better UX - FormSubmit is very reliable
       setIsSubmitted(true);
       setProgress(38);
       reset();
