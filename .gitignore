@@ -20,6 +20,9 @@ out/
 .env.test.local
 .env.production.local
 
+# API Environment
+api/.env
+
 # Logs
 logs
 *.log

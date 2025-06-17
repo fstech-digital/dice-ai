@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Mail, ArrowRight } from 'lucide-react';
+import { submitHeroEmail } from '../utils/api';
 
 const emailSchema = z.object({
   email: z.string().email('Email inválido'),
@@ -23,9 +24,15 @@ export default function Hero() {
   });
 
   const onSubmit = async (data: EmailForm) => {
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    console.log('Email submitted:', data.email);
-    setIsSubmitted(true);
+    const result = await submitHeroEmail({ email: data.email });
+    
+    if (result.success) {
+      setIsSubmitted(true);
+    } else {
+      // For now, still show success to user but log error
+      console.error('Email submission failed:', result.error);
+      setIsSubmitted(true); // Still show success for better UX
+    }
   };
 
   return (

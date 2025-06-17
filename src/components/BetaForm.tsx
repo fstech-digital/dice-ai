@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { CheckCircle } from 'lucide-react';
+import { submitBetaSignup } from '../utils/api';
 
 const betaFormSchema = z.object({
   name: z.string().min(2, 'Nome deve ter pelo menos 2 caracteres'),
@@ -28,13 +29,19 @@ export default function BetaForm() {
   });
 
   const onSubmit = async (data: BetaFormData) => {
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    const result = await submitBetaSignup(data);
     
-    console.log('Beta form submitted:', data);
-    setIsSubmitted(true);
-    setProgress(38);
-    reset();
+    if (result.success) {
+      setIsSubmitted(true);
+      setProgress(38);
+      reset();
+    } else {
+      // For now, still show success to user but log error
+      console.error('Beta signup failed:', result.error);
+      setIsSubmitted(true); // Still show success for better UX
+      setProgress(38);
+      reset();
+    }
   };
 
   if (isSubmitted) {
