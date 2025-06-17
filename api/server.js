@@ -156,7 +156,8 @@ app.post('/api/hero-email', emailLimiter, async (req, res) => {
     const transporter = createTransporter();
     const emailTemplate = createHeroEmailTemplate(email);
 
-    await transporter.sendMail({
+    console.log('Tentando enviar email via SMTP...');
+    const result = await transporter.sendMail({
       from: `"DICE AI System" <${process.env.SMTP_USER}>`,
       to: process.env.DESTINATION_EMAIL,
       subject: emailTemplate.subject,
@@ -164,6 +165,7 @@ app.post('/api/hero-email', emailLimiter, async (req, res) => {
     });
 
     console.log(`Hero email captured: ${email}`);
+    console.log('Email enviado com sucesso:', result.messageId);
     
     res.json({ 
       success: true, 
@@ -209,7 +211,8 @@ app.post('/api/beta-signup', emailLimiter, async (req, res) => {
     const transporter = createTransporter();
     const emailTemplate = createBetaEmailTemplate({ name, email, channel, challenge });
 
-    await transporter.sendMail({
+    console.log('Tentando enviar email beta via SMTP...');
+    const result = await transporter.sendMail({
       from: `"DICE AI System" <${process.env.SMTP_USER}>`,
       to: process.env.DESTINATION_EMAIL,
       subject: emailTemplate.subject,
@@ -217,6 +220,7 @@ app.post('/api/beta-signup', emailLimiter, async (req, res) => {
     });
 
     console.log(`Beta signup: ${name} (${email})`);
+    console.log('Email beta enviado com sucesso:', result.messageId);
     
     res.json({ 
       success: true, 

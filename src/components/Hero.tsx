@@ -24,42 +24,17 @@ export default function Hero() {
 
   const onSubmit = async (data: EmailForm) => {
     try {
-      // Create form element and submit traditionally
-      const form = document.createElement('form');
-      form.action = 'https://formsubmit.co/contato@dice-ia.com';
-      form.method = 'POST';
-      form.style.display = 'none';
+      const response = await fetch('/api/hero-email', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: data.email }),
+      });
 
-      // Add form fields
-      const emailField = document.createElement('input');
-      emailField.type = 'email';
-      emailField.name = 'email';
-      emailField.value = data.email;
-      form.appendChild(emailField);
-
-      // Add hidden fields
-      const subjectField = document.createElement('input');
-      subjectField.type = 'hidden';
-      subjectField.name = '_subject';
-      subjectField.value = '🎲 DICE AI - Novo Lead Hero Section';
-      form.appendChild(subjectField);
-
-      const captchaField = document.createElement('input');
-      captchaField.type = 'hidden';
-      captchaField.name = '_captcha';
-      captchaField.value = 'false';
-      form.appendChild(captchaField);
-
-      const nextField = document.createElement('input');
-      nextField.type = 'hidden';
-      nextField.name = '_next';
-      nextField.value = window.location.href;
-      form.appendChild(nextField);
-
-      // Submit form
-      document.body.appendChild(form);
-      form.submit();
-      document.body.removeChild(form);
+      if (!response.ok) {
+        throw new Error('Erro ao enviar email');
+      }
 
       setIsSubmitted(true);
     } catch (error) {
