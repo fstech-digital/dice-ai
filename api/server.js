@@ -84,6 +84,33 @@ const createHeroEmailTemplate = (email) => {
 };
 
 const createBetaEmailTemplate = (formData) => {
+  const formatTiposConteudo = (tipos) => {
+    if (!tipos || tipos.length === 0) return 'Não informado';
+    return tipos.join(', ');
+  };
+
+  const formatAudiencia = (audiencia) => {
+    const audienciaMap = {
+      'menos_1k': 'Menos de 1K seguidores',
+      '1k_10k': '1K - 10K seguidores',
+      '10k_100k': '10K - 100K seguidores',
+      'mais_100k': 'Mais de 100K seguidores'
+    };
+    return audienciaMap[audiencia] || audiencia || 'Não informado';
+  };
+
+  const formatCanal = (canal) => {
+    const canalMap = {
+      'instagram': 'Instagram',
+      'youtube': 'YouTube',
+      'twitter': 'Twitter/X',
+      'linkedin': 'LinkedIn',
+      'tiktok': 'TikTok',
+      'outros': 'Outros/Vendas'
+    };
+    return canalMap[canal] || canal;
+  };
+
   return {
     subject: '🚀 Novo Cadastro Beta - DICE AI (PRIORITÁRIO)',
     html: `
@@ -97,33 +124,42 @@ const createBetaEmailTemplate = (formData) => {
           <h2 style="color: #1f2937; margin-bottom: 20px;">Dados Completos do Beta Tester</h2>
           
           <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px;">
-            <h3 style="color: #2563eb; margin-top: 0;">Informações Pessoais</h3>
-            <p><strong>Nome:</strong> ${formData.name}</p>
+            <h3 style="color: #2563eb; margin-top: 0;">📋 Informações Básicas</h3>
+            <p><strong>Nome:</strong> ${formData.nome}</p>
             <p><strong>Email:</strong> ${formData.email}</p>
-            <p><strong>Canal Principal:</strong> ${formData.channel}</p>
           </div>
           
           <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px;">
-            <h3 style="color: #2563eb; margin-top: 0;">Maior Desafio</h3>
-            <p style="background: #f3f4f6; padding: 15px; border-radius: 6px; font-style: italic;">
-              "${formData.challenge}"
-            </p>
+            <h3 style="color: #2563eb; margin-top: 0;">🎯 Perfil de Criador</h3>
+            <p><strong>Canal Principal:</strong> ${formatCanal(formData.canal_principal)}</p>
+            <div style="margin-top: 15px;">
+              <strong>Maior Desafio:</strong>
+              <p style="background: #f3f4f6; padding: 15px; border-radius: 6px; font-style: italic; margin: 5px 0 0 0;">
+                "${formData.maior_desafio}"
+              </p>
+            </div>
+          </div>
+          
+          <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); margin-bottom: 20px;">
+            <h3 style="color: #2563eb; margin-top: 0;">📊 Segmentação</h3>
+            <p><strong>Tamanho da Audiência:</strong> ${formatAudiencia(formData.audiencia)}</p>
+            <p><strong>Tipos de Conteúdo:</strong> ${formatTiposConteudo(formData.tipos_conteudo)}</p>
           </div>
           
           <div style="background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-            <h3 style="color: #2563eb; margin-top: 0;">Metadados</h3>
-            <p><strong>Data/Hora:</strong> ${new Date().toLocaleString('pt-BR')}</p>
-            <p><strong>Origem:</strong> Formulário Beta Completo</p>
+            <h3 style="color: #2563eb; margin-top: 0;">⚙️ Metadados</h3>
+            <p><strong>Data/Hora:</strong> ${formData.timestamp ? new Date(formData.timestamp).toLocaleString('pt-BR') : new Date().toLocaleString('pt-BR')}</p>
+            <p><strong>Origem:</strong> Formulário Beta Completo (/beta)</p>
             <p><strong>Status:</strong> Aguardando aprovação</p>
           </div>
           
           <div style="margin-top: 20px; padding: 15px; background: #dcfce7; border-radius: 8px;">
-            <p style="margin: 0; color: #15803d;"><strong>Próximos Passos:</strong></p>
+            <p style="margin: 0; color: #15803d;"><strong>🚀 Próximos Passos:</strong></p>
             <ul style="margin: 10px 0 0 0; color: #15803d;">
-              <li>Revisar perfil do candidato</li>
-              <li>Enviar email de boas-vindas personalizado</li>
+              <li>Revisar perfil do candidato baseado no desafio informado</li>
+              <li>Enviar email de boas-vindas personalizado para o canal ${formatCanal(formData.canal_principal)}</li>
               <li>Adicionar à lista de beta testers</li>
-              <li>Agendar onboarding se necessário</li>
+              <li>Agendar onboarding focado em ${formData.maior_desafio}</li>
             </ul>
           </div>
         </div>
@@ -184,13 +220,21 @@ app.post('/api/hero-email', emailLimiter, async (req, res) => {
 // Beta form submission
 app.post('/api/beta-signup', emailLimiter, async (req, res) => {
   try {
-    const { name, email, channel, challenge } = req.body;
+    const { 
+      nome, 
+      email, 
+      canal_principal, 
+      maior_desafio, 
+      audiencia, 
+      tipos_conteudo,
+      timestamp
+    } = req.body;
 
-    // Validation
-    if (!name || !email || !channel || !challenge) {
+    // Validation - campos obrigatórios
+    if (!nome || !email || !canal_principal || !maior_desafio) {
       return res.status(400).json({ 
         success: false, 
-        error: 'Todos os campos são obrigatórios' 
+        error: 'Campos obrigatórios: nome, email, canal_principal e maior_desafio' 
       });
     }
 
@@ -201,17 +245,29 @@ app.post('/api/beta-signup', emailLimiter, async (req, res) => {
       });
     }
 
-    if (challenge.length < 10) {
+    if (maior_desafio.length < 10) {
       return res.status(400).json({ 
         success: false, 
         error: 'Descreva seu desafio com mais detalhes (mínimo 10 caracteres)' 
       });
     }
 
+    const formData = {
+      nome,
+      email,
+      canal_principal,
+      maior_desafio,
+      audiencia,
+      tipos_conteudo,
+      timestamp
+    };
+
     const transporter = createTransporter();
-    const emailTemplate = createBetaEmailTemplate({ name, email, channel, challenge });
+    const emailTemplate = createBetaEmailTemplate(formData);
 
     console.log('Tentando enviar email beta via SMTP...');
+    console.log('Dados recebidos:', JSON.stringify(formData, null, 2));
+    
     const result = await transporter.sendMail({
       from: `"DICE AI System" <${process.env.SMTP_USER}>`,
       to: process.env.DESTINATION_EMAIL,
@@ -219,7 +275,7 @@ app.post('/api/beta-signup', emailLimiter, async (req, res) => {
       html: emailTemplate.html
     });
 
-    console.log(`Beta signup: ${name} (${email})`);
+    console.log(`Beta signup: ${nome} (${email}) - Canal: ${canal_principal}`);
     console.log('Email beta enviado com sucesso:', result.messageId);
     
     res.json({ 
