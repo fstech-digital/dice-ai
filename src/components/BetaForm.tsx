@@ -6,10 +6,10 @@ import { z } from 'zod';
 import { CheckCircle } from 'lucide-react';
 
 const betaFormSchema = z.object({
-  name: z.string().min(2, 'Nome deve ter pelo menos 2 caracteres'),
+  nome: z.string().min(2, 'Nome deve ter pelo menos 2 caracteres'),
   email: z.string().email('Email inválido'),
-  channel: z.string().min(1, 'Selecione seu canal principal'),
-  challenge: z.string().min(10, 'Descreva brevemente seu maior desafio'),
+  canal_principal: z.string().min(1, 'Selecione seu canal principal'),
+  maior_desafio: z.string().min(10, 'Descreva brevemente seu maior desafio'),
 });
 
 type BetaFormData = z.infer<typeof betaFormSchema>;
@@ -35,10 +35,11 @@ export default function BetaForm() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          name: data.name,
+          nome: data.nome,
           email: data.email,
-          channel: data.channel,
-          challenge: data.challenge,
+          canal_principal: data.canal_principal,
+          maior_desafio: data.maior_desafio,
+          timestamp: new Date().toISOString(),
         }),
       });
 
@@ -132,14 +133,14 @@ export default function BetaForm() {
                 Nome completo
               </label>
               <input
-                {...register('name')}
+                {...register('nome')}
                 type="text"
                 className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/60 focus:ring-2 focus:ring-white/50 focus:border-transparent outline-none"
                 placeholder="Seu nome completo"
                 disabled={isSubmitting}
               />
-              {errors.name && (
-                <p className="text-red-300 text-sm mt-1">{errors.name.message}</p>
+              {errors.nome && (
+                <p className="text-red-300 text-sm mt-1">{errors.nome.message}</p>
               )}
             </div>
 
@@ -164,7 +165,7 @@ export default function BetaForm() {
                 Canal principal
               </label>
               <select
-                {...register('channel')}
+                {...register('canal_principal')}
                 className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white focus:ring-2 focus:ring-white/50 focus:border-transparent outline-none"
                 disabled={isSubmitting}
               >
@@ -178,8 +179,8 @@ export default function BetaForm() {
                 <option value="podcast" className="text-gray-900">Podcast</option>
                 <option value="outros" className="text-gray-900">Outros</option>
               </select>
-              {errors.channel && (
-                <p className="text-red-300 text-sm mt-1">{errors.channel.message}</p>
+              {errors.canal_principal && (
+                <p className="text-red-300 text-sm mt-1">{errors.canal_principal.message}</p>
               )}
             </div>
 
@@ -188,14 +189,14 @@ export default function BetaForm() {
                 Maior desafio como creator
               </label>
               <textarea
-                {...register('challenge')}
+                {...register('maior_desafio')}
                 rows={4}
                 className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-lg text-white placeholder-white/60 focus:ring-2 focus:ring-white/50 focus:border-transparent outline-none resize-none"
                 placeholder="Conte brevemente qual sua maior dificuldade ao criar conteúdo..."
                 disabled={isSubmitting}
               />
-              {errors.challenge && (
-                <p className="text-red-300 text-sm mt-1">{errors.challenge.message}</p>
+              {errors.maior_desafio && (
+                <p className="text-red-300 text-sm mt-1">{errors.maior_desafio.message}</p>
               )}
             </div>
 
