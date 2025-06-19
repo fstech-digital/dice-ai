@@ -52,7 +52,9 @@ export default function Hero() {
           transition={{ duration: 0.6 }}
           className="mb-8"
         >
-          <div className="text-6xl mb-4">🎲</div>
+          <div className="mb-6">
+            <img src="/dice-logo.png" alt="DICE AI Logo" className="h-[200px] w-auto mx-auto" />
+          </div>
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-montserrat font-bold text-deep-navy mb-4">
             Não jogue dados com seu conteúdo.{' '}
             <span className="text-dice-gold">Use DICE.</span>
