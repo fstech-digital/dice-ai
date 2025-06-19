@@ -44,7 +44,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-20">
+    <section className="min-h-screen bg-gradient-to-br from-soft-gray to-light-gold flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-20">
       <div className="max-w-4xl mx-auto text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -53,10 +53,11 @@ export default function Hero() {
           className="mb-8"
         >
           <div className="text-6xl mb-4">🎲</div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 mb-4">
-            Não Deixe Seu Conteúdo na Sorte.{' '}
-            <span className="text-primary">Use DICE.</span>
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-montserrat font-bold text-deep-navy mb-4">
+            Não jogue dados com seu conteúdo.{' '}
+            <span className="text-dice-gold">Use DICE.</span>
           </h1>
+          <p className="text-lg font-open-sans font-light text-medium-navy mb-6">ETHICAL CONTENT INTELLIGENCE</p>
         </motion.div>
 
         <motion.div
@@ -65,13 +66,11 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="mb-8"
         >
-          <h2 className="text-2xl sm:text-3xl font-semibold text-gray-800 mb-4">
-            Publique com Confiança.<br />
-            Cresça com Credibilidade.
+          <h2 className="text-2xl sm:text-3xl font-montserrat font-medium text-deep-navy mb-4">
+            Protegendo autonomia cognitiva na era digital
           </h2>
-          <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
-            DICE analisa seu conteúdo antes da publicação, eliminando vulnerabilidades 
-            e maximizando impacto - sem comprometer sua autenticidade.
+          <p className="text-lg sm:text-xl font-open-sans text-medium-navy max-w-3xl mx-auto">
+            Primeira detecção de manipulação em tempo real. Democratizando o acesso à detecção de manipulação e promovendo comunicação transparente.
           </p>
         </motion.div>
 
@@ -91,7 +90,7 @@ export default function Hero() {
                       {...register('email')}
                       type="email"
                       placeholder="Seu melhor email"
-                      className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent outline-none text-gray-900"
+                      className="w-full pl-10 pr-4 py-3 border border-medium-navy rounded-lg focus:ring-2 focus:ring-dice-gold focus:border-transparent outline-none text-deep-navy font-open-sans"
                       disabled={isSubmitting}
                     />
                   </div>
@@ -102,13 +101,13 @@ export default function Hero() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="bg-primary hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg flex items-center justify-center gap-2 transition-colors disabled:opacity-50"
+                  className="bg-dice-gold hover:bg-yellow-600 text-deep-navy font-montserrat font-medium py-3 px-6 rounded-lg flex items-center justify-center gap-2 transition-colors disabled:opacity-50"
                 >
                   {isSubmitting ? (
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
                   ) : (
                     <>
-                      Quero Acesso Beta Gratuito
+                      Acesso Beta DICE
                       <ArrowRight className="h-5 w-5" />
                     </>
                   )}
@@ -119,19 +118,19 @@ export default function Hero() {
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="bg-green-100 border border-green-200 rounded-lg p-6 max-w-md mx-auto"
+              className="bg-light-gold border border-dice-gold rounded-lg p-6 max-w-md mx-auto"
             >
-              <div className="text-green-600 text-4xl mb-2">✅</div>
-              <h3 className="text-lg font-semibold text-green-800 mb-2">
+              <div className="text-dice-gold text-4xl mb-2">✅</div>
+              <h3 className="text-lg font-montserrat font-medium text-deep-navy mb-2">
                 Cadastro realizado com sucesso!
               </h3>
-              <p className="text-green-700">
+              <p className="text-medium-navy font-open-sans">
                 Em breve você receberá acesso ao beta do DICE AI.
               </p>
             </motion.div>
           )}
           
-          <p className="text-sm text-gray-500 mt-3">
+          <p className="text-sm text-medium-navy font-open-sans mt-3">
             Primeiros 100 criadores • Sem cartão de crédito
           </p>
         </motion.div>

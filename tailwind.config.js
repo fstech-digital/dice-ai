@@ -7,13 +7,20 @@ export default {
   theme: {
     extend: {
       colors: {
-        primary: '#2563EB',
-        secondary: '#7C3AED',
-        accent: '#059669',
-        text: '#1F2937',
+        'dice-gold': '#D4AF37',
+        'deep-navy': '#1B2951',
+        'light-gold': '#F4E7B1',
+        'medium-navy': '#3A4A73',
+        'soft-gray': '#F8F9FA',
+        primary: '#D4AF37',
+        secondary: '#1B2951',
+        accent: '#D4AF37',
+        text: '#1B2951',
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        'montserrat': ['Montserrat', 'sans-serif'],
+        'open-sans': ['Open Sans', 'sans-serif'],
+        sans: ['Open Sans', 'sans-serif'],
       },
     },
   },

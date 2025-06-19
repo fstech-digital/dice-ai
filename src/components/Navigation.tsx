@@ -22,19 +22,19 @@ export default function Navigation() {
   return (
     <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
       isScrolled 
-        ? 'bg-slate-900/95 backdrop-blur-md shadow-lg' 
+        ? 'bg-deep-navy/95 backdrop-blur-md shadow-lg' 
         : 'bg-transparent'
     }`}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-4">
-          <div className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+          <div className="text-2xl font-montserrat font-bold text-dice-gold">
             🎲 DICE AI
           </div>
           <button
             onClick={scrollToForm}
-            className="bg-primary hover:bg-blue-700 text-white font-semibold px-6 py-2 rounded-full transition-colors"
+            className="bg-dice-gold hover:bg-yellow-600 text-deep-navy font-montserrat font-medium px-6 py-2 rounded-full transition-colors"
           >
-            Garantir Vaga Beta
+            Acesso Beta
           </button>
         </div>
       </div>

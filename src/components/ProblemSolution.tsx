@@ -5,18 +5,18 @@ export default function ProblemSolution() {
   const problems = [
     {
       icon: AlertTriangle,
-      stat: '73%',
-      text: 'dos criadores vivem com medo de críticas',
+      stat: '78%',
+      text: 'do conteúdo digital contém elementos manipulativos',
     },
     {
       icon: Clock,
-      stat: '68%',
-      text: 'gastam tempo excessivo editando por insegurança',
+      stat: '65%',
+      text: 'das pessoas não conseguem identificar manipulação',
     },
     {
       icon: Trash2,
-      stat: '54%',
-      text: 'já deletaram conteúdo valioso após backlash',
+      stat: '84%',
+      text: 'das decisões são influenciadas por conteúdo enviesado',
     },
   ];
 
@@ -30,11 +30,11 @@ export default function ProblemSolution() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4">
-            O Problema que Todo Criador Enfrenta
+          <h2 className="text-3xl sm:text-4xl font-montserrat font-bold text-deep-navy mb-4">
+            O Desafio da Comunicação Digital
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Criar conteúdo hoje é navegar em um campo minado. Uma palavra errada pode destruir sua reputação.
+          <p className="text-xl font-open-sans text-medium-navy max-w-2xl mx-auto">
+            Na era digital, a manipulação de conteúdo compromete a autonomia cognitiva humana. É hora de democratizar a detecção.
           </p>
         </motion.div>
 
@@ -48,11 +48,11 @@ export default function ProblemSolution() {
               viewport={{ once: true }}
               className="text-center"
             >
-              <div className="bg-red-100 rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                <problem.icon className="h-8 w-8 text-red-600" />
+              <div className="bg-light-gold rounded-full p-4 w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+                <problem.icon className="h-8 w-8 text-medium-navy" />
               </div>
-              <div className="text-4xl font-bold text-red-600 mb-2">{problem.stat}</div>
-              <p className="text-gray-700 text-lg">{problem.text}</p>
+              <div className="text-4xl font-montserrat font-bold text-deep-navy mb-2">{problem.stat}</div>
+              <p className="text-medium-navy font-open-sans text-lg">{problem.text}</p>
             </motion.div>
           ))}
         </div>
@@ -62,20 +62,20 @@ export default function ProblemSolution() {
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="bg-gradient-to-r from-primary to-secondary rounded-2xl p-8 sm:p-12 text-center text-white"
+          className="bg-gradient-to-r from-deep-navy to-medium-navy rounded-2xl p-8 sm:p-12 text-center text-white"
         >
           <div className="text-5xl mb-6">🎯</div>
-          <h3 className="text-2xl sm:text-3xl font-bold mb-4">
-            DICE Resolve Isso com IA Ética
+          <h3 className="text-2xl sm:text-3xl font-montserrat font-bold mb-4">
+            DICE: Ethical Content Intelligence
           </h3>
-          <p className="text-xl opacity-90 mb-8 max-w-2xl mx-auto">
-            Nossa inteligência artificial analisa seu conteúdo em múltiplas dimensões: 
-            impacto emocional, clareza, potencial controverso e efetividade da mensagem.
+          <p className="text-xl font-open-sans opacity-90 mb-8 max-w-2xl mx-auto">
+            Sistema dual pioneiro que detecta e neutraliza manipulação digital em tempo real, 
+            protegendo sua autonomia cognitiva e promovendo comunicação transparente.
           </p>
-          <div className="flex items-center justify-center gap-4 text-lg font-semibold">
-            <span>Problema Identificado</span>
+          <div className="flex items-center justify-center gap-4 text-lg font-montserrat font-medium">
+            <span>Manipulação Detectada</span>
             <ArrowRight className="h-6 w-6" />
-            <span>Solução Inteligente</span>
+            <span>Comunicação Consciente</span>
           </div>
         </motion.div>
       </div>
