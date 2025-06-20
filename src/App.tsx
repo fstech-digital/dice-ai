@@ -10,6 +10,7 @@ function App() {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/beta" element={<BetaFormPage />} />
+      {/* Rota para análises DICE */}
       <Route path="/analise/:analysisId" element={<AnalysisPage />} />
       <Route path="/termos" element={<TermsOfService />} />
       <Route path="/privacidade" element={<PrivacyPolicy />} />
